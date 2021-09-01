@@ -8,11 +8,9 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    if message.author == client.user:
-        return
-    print(message)
-    # if message.bot:
-    #     await message.channel.send(message.content)
+    messages = await message.channel.history().flatten()
+    for message in messages:
+        print(message.content)
 
 with open("botToken.txt") as file:
     myToken = file.read()
