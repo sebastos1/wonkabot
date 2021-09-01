@@ -4,10 +4,11 @@ import logging
 
 logger = logging.getLogger("discord")
 logger.setLevel(logging.DEBUG)
-handler = logging.FileHandler(filename="discord.log", encoding="utf=8", mode="w")
-handler.setFormatter(logging.Formatter("%(asctime)s:%(levelname)s:%(name)s: %(message)s"))
+handler = logging.FileHandler(
+    filename="discord.log", encoding="utf=8", mode="w")
+handler.setFormatter(logging.Formatter(
+    "%(asctime)s:%(levelname)s:%(name)s: %(message)s"))
 logger.addHandler(handler)
-
 
 
 # bot =command.Bot(".")
@@ -15,6 +16,7 @@ logger.addHandler(handler)
 
 
 client = discord.Client()
+
 
 @client.event
 async def on_ready():
@@ -25,13 +27,19 @@ async def on_ready():
 async def on_message(message):
     if message.author == client.user:
         return
+    print(message)
+    if message.bot == False:
+        await message.channel.send(message.content)
+    
 
-    if message.content.startswith("$input"):
-        await message.channel.send("hei buddy")
 
+# @client.event
+# async def on_message(message):
+#     if message.author == client.user:
+#         return
 
-
-
+#     if message.content.startswith("$input"):
+#         await message.channel.send("hei buddy")
 
 
 with open("botToken.txt") as f:
